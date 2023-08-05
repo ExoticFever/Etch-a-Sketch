@@ -1,9 +1,20 @@
 //Variables
-let gridSize = 16;
-const gridContainer = document.querySelector(".gridContainer")
+let gridSize = 56;
+const gridContainer = document.querySelector(".gridContainer");
 let mouseDown = false;
-document.body.onmousedown = () => (mouseDown = true);
-document.body.onmouseup = () => (mouseDown = false);
+let rainbowMode = false;
+const gridSizeBtn = document.getElementById("gridSizeBtn");
+document.body.onmousedown = () => mouseDown = true;
+document.body.onmouseup = () => mouseDown = false;
+
+gridSizeBtn.addEventListener("click", () => {
+    let newGridSize = Number(window.prompt("Please enter the size of the grid (Max is 100) : "));
+    if(newGridSize = NaN) {
+        newGridSize = prompt("Please enter a number for the grid size (Max is 100) : ")  
+    } else if(newGridSize > 100) {
+        newGridSize = prompt("Please enter lower number for the grid size (Max is 100) : ")
+    }
+})
 
 //Creating new grid
 createGrid(gridSize);
@@ -20,12 +31,24 @@ function createGrid (gridSize) {
             const cell = document.createElement("div");
             cell.classList.add("cell");
             columns.appendChild(cell);
-            cell.addEventListener("mouseover", () => {
-                cell.style.backgroundColor = "black";
-            })
+//Detect if mouse touching the cells.
+                cell.addEventListener("click", () => {
+                    cell.style.backgroundColor = "black";
+                })
+                cell.addEventListener("mouseover", () => {
+                        if(mouseDown) {
+//Change the color of cell to black
+                        cell.style.backgroundColor = "black";
+                        }
+                    })
+
+                cell.addEventListener("touchstart touchend", () => {
+                    cell.style.backgroundColor = "black"})       
         }
     }
 }
+
+
 
 
 
